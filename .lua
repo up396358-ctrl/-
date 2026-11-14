@@ -1,3 +1,4 @@
+
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
@@ -1720,7 +1721,7 @@ function Tab:Section(options)
 		label(header, { Fg = "InactiveText", Text = options.Description, TextSize = 11, RowH = 14, Y = 18, Truncate = Enum.TextTruncate.AtEnd })
 	end
 	local section
-	local sectionT = (win.HasBackgroundImage and (win.SectionTransparency or 0.22)) or 0
+	local sectionT = (win.HasBackgroundImage and (win.SectionTransparency or 0.50)) or 0
 	local card = new("Frame", {
 		Bg = "Inline", Active = true, Position = Offset(1, headerH + 1), Size = Dim2(1, -2, 0, 0),
 		Radius = Metrics.CardRadius, BackgroundTransparency = sectionT,
@@ -2549,8 +2550,9 @@ end
 -- so the decal shows through the entire UI.
 -- assetId          : number or "rbxassetid://..." (nil/""/0 removes the image)
 -- transparency     : image opacity (0 = solid, 1 = invisible). Default 0
--- chromeTransparency: root/content/sidebar see-through amount. Default 0.28
--- sectionTransparency: section cards see-through amount. Default 0.22
+-- chromeTransparency: content panel see-through amount. Default 0.72
+-- sectionTransparency: section cards see-through amount. Default 0.50
+-- (CanvasTransparency defaults to 0.65 when an image is present)
 function Window:SetBackgroundImage(assetId, transparency, chromeTransparency, sectionTransparency)
 	if self.BackgroundImage then
 		self.BackgroundImage:Destroy()
@@ -2559,9 +2561,9 @@ function Window:SetBackgroundImage(assetId, transparency, chromeTransparency, se
 
 	local hasImage = assetId ~= nil and assetId ~= "" and assetId ~= 0
 	self.HasBackgroundImage = hasImage and true or false
-	self.ChromeTransparency = hasImage and (chromeTransparency or 0.28) or 0
-	self.SectionTransparency = hasImage and (sectionTransparency or 0.22) or 0
-	self.CanvasTransparency = hasImage and (self.CanvasTransparency or 0.15) or 0
+	self.ChromeTransparency = hasImage and (chromeTransparency or 0.72) or 0
+	self.SectionTransparency = hasImage and (sectionTransparency or 0.50) or 0
+	self.CanvasTransparency = hasImage and (self.CanvasTransparency or 0.65) or 0
 
 	local ct = self.ChromeTransparency
 	local canvasT = self.CanvasTransparency
@@ -2923,9 +2925,9 @@ function Blossom.new(options)
 		Visible = true, ThemeName = options.Theme or "Blossom", MenuKey = options.MenuKey or Enum.KeyCode.RightShift,
 		LastPopupTime = 0, DropdownClosedAt = 0,
 		HasBackgroundImage = hasBackgroundImage and true or false,
-		ChromeTransparency = hasBackgroundImage and (options.ChromeTransparency or 0.28) or 0,
-		SectionTransparency = hasBackgroundImage and (options.SectionTransparency or 0.22) or 0,
-		CanvasTransparency = hasBackgroundImage and (options.CanvasTransparency or 0.15) or 0,
+		ChromeTransparency = hasBackgroundImage and (options.ChromeTransparency or 0.72) or 0,
+		SectionTransparency = hasBackgroundImage and (options.SectionTransparency or 0.50) or 0,
+		CanvasTransparency = hasBackgroundImage and (options.CanvasTransparency or 0.65) or 0,
 	}, Window)
 	ensureLoop()
 	LastWindow, Focus = win, win
